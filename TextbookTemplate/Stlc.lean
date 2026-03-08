@@ -294,6 +294,12 @@ small example of working with them:
 example : Step {stlc (1 + 2) + 3} {stlc 3 + 3} := by
   have hd : Head {stlc (1 + 2)} {stlc 3} := by constructor
   apply Step.ctx (.Add1 .Hole (.Const 3)) hd
+
+example : Step {stlc ((fun x => x) 10) + 20} {stlc 10 + 20} := by
+  have hd : Head {stlc (fun x => x) 10} {stlc 10} := by
+    constructor
+    constructor
+  apply Step.ctx (.Add1 .Hole (.Const 20)) hd
 ```
 
 Note how, to establish a particular step, we first identify the
@@ -305,3 +311,5 @@ context and apply the `Step.ctx` constructor.
 # Metatheory
 
 ## Subject Reduction
+
+## Type soundness
